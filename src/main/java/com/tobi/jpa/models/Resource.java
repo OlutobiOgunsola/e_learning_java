@@ -1,17 +1,17 @@
 package com.tobi.jpa.models;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Builder
+@SuperBuilder
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Resource {
 
     @Id
@@ -23,4 +23,8 @@ public class Resource {
     private Integer size;
 
     private String url;
+
+    @OneToOne()
+    @JoinColumn(name="lecture_id")
+    private Lecture lecture;
 }

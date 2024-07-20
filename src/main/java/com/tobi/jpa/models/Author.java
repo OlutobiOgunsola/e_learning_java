@@ -1,25 +1,19 @@
 package com.tobi.jpa.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name="author_tbl")
-public class Author {
-
-    @Id
-    @GeneratedValue
-    private Integer Id;
+public class Author extends BaseEntity {
 
     @Column(
             name="f_name",
@@ -48,5 +42,6 @@ public class Author {
     )
     private LocalDateTime lastModified;
 
+    @ManyToMany(mappedBy = "authors")
     private List<Course> courses;
 }

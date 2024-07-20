@@ -1,24 +1,26 @@
 package com.tobi.jpa.models;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Builder
-public class Section {
-
-    @Id
-    @GeneratedValue
-    private Integer id;
+@SuperBuilder
+public class Section extends BaseEntity {
 
     private String name;
 
-    private Integer order;
+    private Integer sectionOrder;
+
+    @ManyToOne()
+    @JoinColumn(name="course_id")
+    private Course course;
+
+    @OneToMany(mappedBy = "section")
+    private List<Lecture> lectures;
 }
